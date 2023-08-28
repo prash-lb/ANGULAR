@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ACCEUIL</title>
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper">
+      <a routerLink="" routerLinkActive="active" ariaCurrentWhenActive="page"  class="brand-logo">TODO</a>
+      <ul id="nav-mobile" class="right">
+        <li><a (click)=gotosignup() >Sign Up</a></li>
+        <li><a  (click)=gotologin()>Login</a></li>
+      </ul>
+    </div>
+</nav>
+
+<div class=" progress" *ngIf="isLoading ===true">
+  <div class="indeterminate"></div>
+</div>
+
+<h4 style= " margin-top: 100px; text-align: center;">YOUR TASK : {{this.name}} </h4>  
+<div *ngIf="isLoading === false" style=" margin-left:28%;position: relative ; text-align: center;" class="row">
+  <div  style="position: absolute;" class="col s10 m7">
+    <app-todo-item
+      *ngFor= "let todo of todos" 
+      [task]="todo"
+      (taskDelete)="deleteTask($event)"
+      (taskUpdate)="updateTask($event)">
+    </app-todo-item>
+      
+    <app-form-todo
+    (task)="emitSignFormValue($event)">
+    </app-form-todo>
+
+    <footer style="margin-top: 10%;">
+      Created by Prashath SIAYANAMA
+    </footer>
+    
+  </div>
+  
+</div>
+
+</body>
+
+
+</html>
+
+
