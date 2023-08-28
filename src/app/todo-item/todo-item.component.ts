@@ -23,17 +23,25 @@ export class TodoItemComponent {
   edition = false;
 
   todoUpdate(){
-    console.log(this.edition)
     if(this.task){
       this.task.date = this.date;
       this.task.label = this.label;
     }
     this.update = false;
-    console.log(this.task);
     this.taskUpdate.emit(this.task);
   }
 
   delete(){
     this.taskDelete.emit(this.task?.id);
   }
+ 
+
+  TaskDone(){
+    if(this.task){
+      this.task.done = ! this.task.done;
+    }
+    this.update = false;
+    this.taskUpdate.emit(this.task);
+  }
+
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormTODO, TODO ,TODOResponse, USER} from '../model/model';
 import { UserService } from '../user.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-todo-list',
@@ -10,6 +11,8 @@ import { UserService } from '../user.service';
 })
 export class TodoListComponent implements OnInit{
   todos :TODO[] =[];
+  users: USER[] =[];
+
   isLoading = false;
   label:string='';
   done:boolean = false;
@@ -26,8 +29,9 @@ export class TodoListComponent implements OnInit{
       this.isLoading = false
     });}
   
-  gotologin(){
-    this.router.navigate(['HOME/LOGIN']);
+  gotodisconnect(){
+    this.cookieService.delete('user')
+    this.router.navigate(['HOME']);
   }
   gotosignup(){
     this.router.navigate(['HOME/SIGN_UP']);
@@ -43,56 +47,40 @@ export class TodoListComponent implements OnInit{
         }
       }
   );}
-    
 
   updateTask(todo:TODO){
-    console.log("on est dans update task pere ")
     this.userservice.updateTask(todo).subscribe(
       (update)=>{
         if(update){
-          this.ngOnInit();
+          this.RefreshTodo();
         }else{
           alert("ERROR SERVER")
         }
       }
     );
   }
-  
+
   emitSignFormValue(task : FormTODO){
     this.userservice.createTodo(task.label,false,task.date,this.name).subscribe(
       (created) => {
         if(created){
-          this.ngOnInit();
+          this.RefreshTodo();
         } else{
           alert('Error server')
         }
       }
     );
+    
   }
-  constructor(private route: ActivatedRoute,private router:Router ,protected userservice : UserService) {}
+  constructor(private route: ActivatedRoute,private router:Router ,protected userservice : UserService,private cookieService: CookieService ) {}
   
-  verificationnameurl(name:string):boolean{
-    let user :USER[]=  [];
-    this.userservice.getUser().subscribe((users)=> {
-      for(let i =0 ; i<users.length;i++){
-        user.push(users[i]);
-      }
-    });
-    for(let i=0;i<user.length;i++){
-      if(user[i].name=== name){
-        return true;
-      }
-    }
-    return false;
-  };
-
+  
   
   ngOnInit(): void {
     this.name = this.route.snapshot.params['name'];
-    if(this.verificationnameurl(this.name)===false){
-      this.router.navigate(["**"]);
-    }
-    this.RefreshTodo()
+    this.cookieService.set('user',this.name);
+    this.RefreshTodo() ;
+   
   }
   
 }

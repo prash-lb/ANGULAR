@@ -8,9 +8,7 @@ import { FormTODO, TODO, TODOResponse, USER, UserResponse } from './model/model'
 })
 export class UserService {
   baseURL: string = "http://localhost:3000/";
-  id = 0;
 
-  task = [];
   constructor(private http:HttpClient) { }
 
   getTodo() :Observable<TODO[]>{
@@ -21,6 +19,7 @@ export class UserService {
   getUser() : Observable<USER[]>{
     return this.http.get<UserResponse>('assets/json/user.json').pipe(map((userreponse) => userreponse.users));
   }
+
   private calcid(todo:boolean):number{
     let compteur = 0;
     if (!todo) {  
@@ -73,7 +72,8 @@ export class UserService {
     return this.http.delete(this.baseURL+'todo/'+(id)).pipe(map((resp) =>true),catchError((err)=> of(false)));
 
   }
-
+  
+  
   updateTask(Task : TODO): Observable<boolean>{
     let data : TODO = {
       id: Task.id,
@@ -82,7 +82,6 @@ export class UserService {
       date : Task.date,
       label : Task.label,
     };
-    console.log(this.baseURL+'todo/'+data.id,data);
     return this.http.put<TODO>(this.baseURL+'todo/'+data.id,data).pipe(
       map((update)=> true),
       catchError((err)=> of(false))

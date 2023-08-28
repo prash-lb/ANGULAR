@@ -1,8 +1,7 @@
-<div style="margin-top: 10%; background-color:#E57373 ;">
-    <h5 style="color: white"  >Add task</h5>
-    <form action="" #login ="ngForm" (ngSubmit)= "emitFormalue()">
-        <label style="color: white;" for="nameTask">Task</label>
-        <input style="color: white" 
+
+    <form style="text-align: center;" action="" #login ="ngForm" (ngSubmit)= "emitFormValue()" >
+        <label style="color: black;" for="nameTask">Task</label>
+        <input style="color: black" 
             type="text"
             name = "Task"
             [(ngModel)] = "label"
@@ -12,13 +11,13 @@
             #input1 = "ngModel" />
     
         <div *ngIf="input1.touched && input1.invalid">
-            <p style="color: white" *ngIf="input1?.errors?.['required']"> Task required</p>
-            <p style="color: white" *ngIf="input1?.errors?.['pattern']">your task name can only be composed of  letter</p>
+            <p style="color: red" *ngIf="input1?.errors?.['required']"> Task required</p>
+            <p style="color: red" *ngIf="input1?.errors?.['pattern']">your task name can only be composed of  letter</p>
     
         </div>
         <pre></pre>
-        <label style="color: white" for="date">Date</label>
-        <input style="color: white"  
+        <label style="color: black" for="date">Date</label>
+        <input style="color: black"  
             type="date" 
             name="Date"
             [(ngModel)]= "date" 
@@ -28,11 +27,10 @@
             class="datepicker"
             />
         <div *ngIf="input2.touched && input2.invalid">
-            <p  style="color: white" *ngIf="input2.invalid"> Date required</p>
+            <p  style="color: red" *ngIf="input2.invalid"> Date required</p>
         </div>
         <pre></pre>
         <button style="color: #137cb1; margin-bottom: 3%;" class="btn waves-effect waves-light" type="submit" [disabled]="login.invalid " name="action">Submit
             <i class="material-icons right"></i>
         </button>
     </form>
-  </div>

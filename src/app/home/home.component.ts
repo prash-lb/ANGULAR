@@ -14,28 +14,26 @@ export class HomeComponent {
   user:string ="exemple";
   id:number = 3;
 
-  ngOnInit() {}
 
   emitFormValue() {
-    console.log(this.label);
-    this.Tache.push({
+    let task : TODO[]=[];
+    task.push({
       id:this.id,
       label: this.label,
       done:false,
       date :  new Date(this.date),
       user : this.user
-    })
+    });
+    this.Tache = task.concat(this.Tache);
     this.id ++;
-    alert("new task added")
     
 
   }
-
+  deleTetask(task:TODO){
+    this.Tache.splice(this.Tache.indexOf(task),1);
+  }
   raiseTaskAcomplied(task :TODO){
     task.done = ! task.done;
-    console.log(    this.Tache.splice(task.id)
-    );
-    delete this.Tache[task.id];
     this.Tache.push({
       id:this.id,
       label : task.label,
@@ -44,5 +42,9 @@ export class HomeComponent {
       user:task.user
     })
     this.id++;
+    this.deleTetask(task);
+
+    
+   
   }
 }

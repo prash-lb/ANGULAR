@@ -34,13 +34,13 @@
             <p style="color: red" *ngIf="input2?.errors?.['required']"> password required</p>
           </div>
           <div *ngIf="input2.touched && input2.valid">
-            <p style="color: red;" *ngIf="!verificationemail(name,password)">The name or the password is wrong </p>
+            <p style="color: red;" *ngIf="!verificationuser(name,password)">The name or the password is wrong </p>
           </div>
         </div>
       </div>
       <pre></pre>      
     <div>
-      <button style="margin-left: 45%; color: #137cb1; margin-bottom: 3%;" class="btn waves-effect waves-light" type="submit" [disabled]= " login.invalid || !verificationemail(name,password)"  name="action">Submit
+      <button style="margin-left: 45%; color: #137cb1; margin-bottom: 3%;" class="btn waves-effect waves-light" type="submit" [disabled]= " login.invalid || !verificationuser(name,password)"  name="action">Submit
         <i class="material-icons right"></i>
       </button>
     </div>      

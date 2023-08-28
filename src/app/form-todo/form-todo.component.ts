@@ -9,13 +9,11 @@ import { FormTODO } from '../model/model';
 export class FormTodoComponent {
   label:string='';
   date:Date = new Date();
+
   @Output()
   task: EventEmitter<FormTODO>  = new EventEmitter();
- 
-  constructor(){}
-
-  
-  emitFormalue(){
+   
+  emitFormValue(){
     let task : FormTODO = {
       label : this.label,
       date : this.date,

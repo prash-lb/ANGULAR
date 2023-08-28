@@ -16,6 +16,12 @@ export class FormsSignupComponent  implements OnInit{
   email:string = '';
   password:string ='';
   
+  constructor( private router:Router ,private userservice : UserService){}
+
+  ngOnInit(){
+    this.RefreshUser();
+  }
+
   private RefreshUser(){
     this.isLoading = true;
     this.userservice.getUser().subscribe((user) => {
@@ -40,12 +46,7 @@ export class FormsSignupComponent  implements OnInit{
       }
     );
   }
-  constructor( private router:Router ,private userservice : UserService){}
-
-  ngOnInit(){
-    this.RefreshUser();
-  }
-
+  
   verificationname(name:string){
     for(let i = 0 ; i< this.users.length;i++){
       if(this.users[i].name === name){
@@ -54,7 +55,4 @@ export class FormsSignupComponent  implements OnInit{
     }
     return false;
   }
-
-
-  
 }
